@@ -1,0 +1,198 @@
+/* Bitcoin Cash inspired color palette */
+:root {
+  --bch-green: #16a085;
+  --bch-green-dark: #0e7a6b;
+  --bch-green-light: #48c9b0;
+  --bch-orange: #f39c12;
+  --bch-orange-dark: #d68910;
+  --bch-orange-light: #f8c471;
+  --bch-gold: #f1c40f;
+  --bch-dark: #2c3e50;
+  --bch-gray: #34495e;
+  --bch-light-gray: #ecf0f1;
+}
+
+/* Global styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--bch-dark);
+}
+
+/* Bitcoin Cash themed components */
+.bch-gradient {
+  background: linear-gradient(135deg, var(--bch-green) 0%, var(--bch-orange) 100%);
+}
+
+.bch-gradient-text {
+  background: linear-gradient(135deg, var(--bch-green) 0%, var(--bch-orange) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bch-light-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bch-green);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bch-green-dark);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Loading states */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Video player container */
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Rich text editor styles */
+.ql-editor {
+  min-height: 200px;
+}
+
+.ql-editor p {
+  margin-bottom: 1rem;
+}
+
+.ql-editor h1,
+.ql-editor h2,
+.ql-editor h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Blog content styles */
+.blog-content {
+  line-height: 1.8;
+}
+
+.blog-content h1,
+.blog-content h2,
+.blog-content h3 {
+  color: var(--bch-dark);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.blog-content p {
+  margin-bottom: 1.5rem;
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin-bottom: 1.5rem;
+  padding-left: 2rem;
+}
+
+.blog-content blockquote {
+  border-left: 4px solid var(--bch-green);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  font-style: italic;
+  color: var(--bch-gray);
+}
+
+/* Responsive design helpers */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .text-responsive {
+    font-size: 0.875rem;
+  }
+}
+
+/* Focus states for accessibility */
+.focus\:ring-bch:focus {
+  --tw-ring-color: var(--bch-green);
+}
+
+/* Custom button styles */
+.btn-bch-primary {
+  background-color: var(--bch-green);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-bch-primary:hover {
+  background-color: var(--bch-green-dark);
+  transform: translateY(-1px);
+}
+
+.btn-bch-secondary {
+  background-color: transparent;
+  color: var(--bch-green);
+  border: 2px solid var(--bch-green);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-bch-secondary:hover {
+  background-color: var(--bch-green);
+  color: white;
+}
