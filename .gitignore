@@ -1,9 +1,8 @@
-node_modules/ 
-dist/ 
-.vite/ 
-*.log 
-.DS_Store 
-.env 
-*.zip 
-browser_screenshots/ 
-package-lock.json 
+node_modules/
+.vite/
+*.log
+.DS_Store
+.env
+*.zip
+browser_screenshots/
+package-lock.json
