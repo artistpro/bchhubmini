@@ -14,6 +14,7 @@ export function Layout({ children }: LayoutProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [copiedAddress, setCopiedAddress] = useState(false)
   const { user, profile, signOut, isAdmin } = useAuth()
+	
   const location = useLocation()
   const navigate = useNavigate()
 

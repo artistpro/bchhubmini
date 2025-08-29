@@ -1,0 +1,16 @@
+{
+  "crons": [
+    {
+      "path": "/api/keep-alive",
+      "schedule": "0 0 */5 * *"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{"type": "host", "value": "bchhubmini.vercel.app"}],
+      "destination": "https://bchhub.cash/:path*", 
+      "permanent": true
+    }
+  ]
+}

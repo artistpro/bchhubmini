@@ -9,6 +9,7 @@ interface AuthContextType {
   isAdmin: boolean
   signIn: (email: string, password: string) => Promise<any>
   signUp: (email: string, password: string, fullName?: string) => Promise<any>
+  signInWithBCH: (address: string, signature: string, message: string) => Promise<any>
   signOut: () => Promise<void>
   refreshProfile: () => Promise<void>
 }
@@ -27,7 +28,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       try {
         const { data: { user } } = await supabase.auth.getUser()
         setUser(user)
-        
+
         if (user) {
           await loadProfile(user.id)
         }
@@ -53,18 +54,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   async function loadProfile(userId: string) {
+  
     try {
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', userId)
         .maybeSingle()
-      
+
       if (error) {
         console.error('Error loading profile:', error)
         return
       }
-      
+
+     
+
+      console.log('Profile data:', data)
+      console.log('Role value:', data?.role)
+      console.log('Is admin check:', data?.role === 'admin')
       setProfile(data)
     } catch (error) {
       console.error('Error loading profile:', error)
@@ -76,7 +83,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       email,
       password
     })
-    
+
     if (error) throw error
     return data
   }
@@ -91,9 +98,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
       }
     })
-    
+
     if (error) throw error
-    
+
     // Create profile if signup was successful
     if (data.user) {
       const { error: profileError } = await supabase
@@ -104,12 +111,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           full_name: fullName || '',
           role: 'user'
         })
-      
+
       if (profileError) {
         console.error('Error creating profile:', profileError)
       }
     }
-    
+
     return data
   }
 
@@ -124,6 +131,56 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+async function signInWithBCH(address: string, signature: string, message: string) {
+    try {
+      // Por ahora, crear/encontrar usuario basado en la dirección BCH
+      // En el futuro aquí verificaremos la firma
+      
+      // Buscar si ya existe un perfil con esta dirección BCH
+      const { data: existingProfile, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('bch_address', address)
+        .maybeSingle()
+
+      if (profileError && profileError.code !== 'PGRST116') {
+        throw profileError
+      }
+
+      if (existingProfile) {
+        // Usuario existente - crear sesión personalizada
+        // Por ahora simulamos esto, en producción necesitarías edge functions
+        return { user: { bch_address: address }, profile: existingProfile }
+      } else {
+        // Nuevo usuario - crear perfil
+        const newProfile = {
+          id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+  var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+  return v.toString(16);
+}),
+          email: `${address.slice(-8)}@bch.local`, // Email temporal
+          full_name: `BCH User ${address.slice(-8)}`,
+          role: 'user',
+          bch_address: address,
+          auth_method: 'bch'
+        }
+
+        const { data, error } = await supabase
+          .from('profiles')
+          .insert(newProfile)
+          .select()
+          .single()
+
+        if (error) throw error
+
+        return { user: { bch_address: address }, profile: data }
+      }
+    } catch (error) {
+      console.error('BCH sign in error:', error)
+      throw error
+    }
+  }
+
   const isAdmin = profile?.role === 'admin'
 
   return (
@@ -134,6 +191,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       isAdmin,
       signIn,
       signUp,
+      signInWithBCH,
       signOut,
       refreshProfile
     }}>
