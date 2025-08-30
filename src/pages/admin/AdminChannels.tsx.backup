@@ -4,7 +4,6 @@ import { supabase } from '@/lib/supabase';
 export function AdminChannels() {
   const [channels, setChannels] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [syncing, setSyncing] = useState(false);
   const [addingChannel, setAddingChannel] = useState(false);
   const [newChannelId, setNewChannelId] = useState('');
   const [error, setError] = useState('');
@@ -26,82 +25,6 @@ export function AdminChannels() {
       setError('Failed to load channels');
     } finally {
       setLoading(false);
-    }
-  };
-
-  // Sync videos from all active channels
-  const syncAllVideos = async () => {
-    if (!channels.length) {
-      setError('No channels found. Add channels first.');
-      return;
-    }
-    
-    setSyncing(true);
-    setError('');
-    setSuccess('');
-    
-    try {
-      let totalNewVideos = 0;
-      const activeChannels = channels.filter(channel => channel.is_active);
-      
-      if (activeChannels.length === 0) {
-        setError('No active channels found. Activate at least one channel first.');
-        return;
-      }
-      
-      for (const channel of activeChannels) {
-        try {
-          // Call YouTube API directly
-          const response = await fetch(
-            `https://www.googleapis.com/youtube/v3/search?key=${import.meta.env.VITE_YOUTUBE_API_KEY}&channelId=${channel.channel_id}&part=snippet&order=date&maxResults=10&type=video`
-          );
-          
-          if (!response.ok) {
-            console.warn(`Failed to fetch videos for channel ${channel.channel_name}`);
-            continue;
-          }
-          
-          const data = await response.json();
-          
-          if (data.items) {
-            for (const video of data.items) {
-              try {
-                // Check if video already exists
-                const { data: existingVideo } = await supabase
-                  .from('videos')
-                  .select('id')
-                  .eq('youtube_id', video.id.videoId)
-                  .single();
-                  
-                if (!existingVideo) {
-                  // Add new video
-                  await supabase.from('videos').insert({
-                    youtube_id: video.id.videoId,
-                    title: video.snippet.title,
-                    description: video.snippet.description || '',
-                    thumbnail_url: video.snippet.thumbnails?.medium?.url || video.snippet.thumbnails?.default?.url,
-                    channel_id: channel.id,
-                    published_at: video.snippet.publishedAt,
-                    is_featured: false
-                  });
-                  totalNewVideos++;
-                }
-              } catch (videoError) {
-                console.warn(`Error processing video ${video.id.videoId}:`, videoError);
-              }
-            }
-          }
-        } catch (channelError) {
-          console.warn(`Error syncing channel ${channel.channel_name}:`, channelError);
-        }
-      }
-      
-      setSuccess(`Sync completed! Found ${totalNewVideos} new videos from ${activeChannels.length} active channels.`);
-    } catch (err) {
-      console.error('Sync error:', err);
-      setError('Sync failed: ' + err.message);
-    } finally {
-      setSyncing(false);
     }
   };
 
@@ -194,22 +117,12 @@ export function AdminChannels() {
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold text-gray-900">Channel Management</h1>
-          <div className="flex gap-2">
-            <button
-              onClick={fetchChannels}
-              disabled={loading}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
-            >
-              {loading ? 'Loading...' : 'Refresh'}
-            </button>
-            <button
-              onClick={syncAllVideos}
-              disabled={syncing || loading}
-              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
-            >
-              {syncing ? 'Syncing...' : 'Sync Videos Now'}
-            </button>
-          </div>
+          <button
+            onClick={fetchChannels}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Refresh
+          </button>
         </div>
 
         {/* Alert Messages */}
