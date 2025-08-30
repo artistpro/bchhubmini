@@ -14,7 +14,7 @@ const ChannelManagement = () => {
     try {
       setLoading(true);
       const { data, error } = await supabase
-        .from('channels')
+        .from('youtube_channels')
         .select('*')
         .order('created_at', { ascending: false });
 
@@ -76,7 +76,7 @@ const ChannelManagement = () => {
 
     try {
       const { error } = await supabase
-        .from('channels')
+        .from('youtube_channels')
         .delete()
         .eq('id', channelId);
 
@@ -94,7 +94,7 @@ const ChannelManagement = () => {
   const toggleChannelStatus = async (channelId, currentStatus) => {
     try {
       const { error } = await supabase
-        .from('channels')
+        .from('youtube_channels')
         .update({ is_active: !currentStatus })
         .eq('id', channelId);
 
