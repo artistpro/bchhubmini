@@ -239,7 +239,7 @@ export function Layout({ children }: LayoutProps) {
                 <div className="bg-black/20 rounded-lg p-4 border border-white/20">
                   <div className="flex items-center justify-between flex-wrap gap-2">
                     <code className="text-sm text-white font-mono break-all flex-1">
-                      qrmyh2x674uka3jls0rwv7rnpwgty2kr3ckagu7ltu
+                      bitcoincash:qrmyh2x674uka3jls0rwv7rnpwgty2kr3ckagu7ltu
                     </code>
                     <Button
                       onClick={copyBitcoinAddress}
