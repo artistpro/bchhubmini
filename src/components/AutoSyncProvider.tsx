@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { useAutoSync } from '@/hooks/useAutoSync';
+import { useAuth } from '@/contexts/AuthContext';
 import { AlertCircle, CheckCircle2, Wifi, WifiOff } from 'lucide-react';
 
 interface AutoSyncContextType {
@@ -38,9 +39,12 @@ interface AutoSyncProviderProps {
  * Incluye:
  * - Auto-sincronización de videos cada 30 minutos
  * - Keep-alive cada 5 minutos para evitar que Supabase se pause
- * - Indicador visual del estado de sincronización
+ * - Indicador visual del estado de sincronización (SOLO PARA ADMINS)
  */
 export function AutoSyncProvider({ children }: AutoSyncProviderProps) {
+  // Obtener estado de autenticación para verificar si es admin
+  const { isAdmin } = useAuth();
+  
   // Configuración por defecto: 
   // - Sincronizar cada 30 minutos
   // - Keep-alive cada 5 minutos
@@ -83,8 +87,9 @@ export function AutoSyncProvider({ children }: AutoSyncProviderProps) {
     >
       {children}
 
-      {/* Indicador de estado flotante (solo visible para admins) */}
-      <div className="fixed bottom-4 right-4 z-50">
+      {/* Indicador de estado flotante - SOLO VISIBLE PARA ADMINISTRADORES */}
+      {isAdmin && (
+        <div className="fixed bottom-4 right-4 z-50">
         <div className="bg-white rounded-lg shadow-lg border border-gray-200 p-4 max-w-xs">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-semibold text-gray-700">Auto-Sync Status</span>
@@ -170,6 +175,7 @@ export function AutoSyncProvider({ children }: AutoSyncProviderProps) {
           )}
         </div>
       </div>
+      )}
     </AutoSyncContext.Provider>
   );
 }
