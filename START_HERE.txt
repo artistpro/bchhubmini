@@ -1,0 +1,149 @@
+═══════════════════════════════════════════════════════════════
+   🚀 BCH HUB - SISTEMA DE AUTO-SINCRONIZACIÓN INSTALADO
+═══════════════════════════════════════════════════════════════
+
+✅ ¡BUENAS NOTICIAS! Tu problema está resuelto.
+
+❌ PROBLEMA ANTERIOR:
+   - Supabase se pausaba por inactividad
+   - Videos NO se indexaban automáticamente
+   - Tenías que sincronizar manualmente
+
+✅ SOLUCIÓN INSTALADA:
+   - Keep-alive cada 5 minutos → Supabase NUNCA se pausa
+   - Auto-sync cada 30 minutos → Videos se indexan SOLOS
+   - Widget visual → Ves el estado en tiempo real
+   - 100% GRATIS → No necesitas Vercel Pro
+
+═══════════════════════════════════════════════════════════════
+   📝 PASO 1: SUBE LOS CAMBIOS A GITHUB
+═══════════════════════════════════════════════════════════════
+
+Opción A - Script Automático (Recomendado):
+------------------------------------------
+1. Abre tu terminal
+2. Ve a la carpeta del proyecto:
+   cd /ruta/a/bchhubmini-main
+
+3. Ejecuta el script:
+   ./deploy.sh
+
+4. ¡Listo! El script hace todo automáticamente
+
+
+Opción B - Comandos Manuales:
+-----------------------------
+Si prefieres hacerlo paso a paso:
+
+1. Abre tu terminal
+2. Ve a la carpeta del proyecto:
+   cd /ruta/a/bchhubmini-main
+
+3. Agrega los archivos:
+   git add .
+
+4. Crea el commit:
+   git commit -m "Add auto-sync system"
+
+5. Sube a GitHub:
+   git push origin main
+
+═══════════════════════════════════════════════════════════════
+   ⏱️ PASO 2: ESPERA 2-3 MINUTOS
+═══════════════════════════════════════════════════════════════
+
+Vercel detectará el cambio automáticamente y desplegará la
+nueva versión. No tienes que hacer nada.
+
+Puedes monitorear en:
+https://vercel.com/dashboard
+
+═══════════════════════════════════════════════════════════════
+   🎉 PASO 3: VERIFICA QUE FUNCIONA
+═══════════════════════════════════════════════════════════════
+
+1. Abre tu sitio: https://bchlive.cash
+
+2. Busca el widget en la ESQUINA INFERIOR DERECHA:
+
+   ┌─────────────────────────┐
+   │ Auto-Sync Status   [ON] │
+   ├─────────────────────────┤
+   │ 📡 Keep-alive: 2m ago   │
+   │ ✅ Last sync: 15m ago   │
+   │ ✓ 5 successful syncs    │
+   ├─────────────────────────┤
+   │ [Sync Now] [Ping DB]    │
+   └─────────────────────────┘
+
+3. Si ves el widget → ¡TODO ESTÁ FUNCIONANDO! 🎉
+
+═══════════════════════════════════════════════════════════════
+   🔧 OPCIONAL: MANTENERLO ACTIVO 24/7 (GRATIS)
+═══════════════════════════════════════════════════════════════
+
+El sistema funciona mientras alguien tenga el sitio abierto.
+Para que funcione 24/7 sin que alguien lo visite:
+
+OPCIÓN 1: UptimeRobot (Recomendado - 100% Gratis)
+-------------------------------------------------
+1. Ve a: https://uptimerobot.com
+2. Crea cuenta gratis
+3. Agrega tu sitio: https://bchlive.cash
+4. Configura: Ping cada 5 minutos
+5. ¡Listo! Funcionará 24/7
+
+OPCIÓN 2: Pestaña Abierta
+-------------------------
+Deja una pestaña del navegador abierta con tu sitio
+(funciona mientras tu computadora esté encendida)
+
+═══════════════════════════════════════════════════════════════
+   📚 DOCUMENTACIÓN INCLUIDA
+═══════════════════════════════════════════════════════════════
+
+Lee estos archivos para más detalles:
+
+📄 DEPLOYMENT_GUIDE.md  → Guía completa de deployment
+📄 AUTO_SYNC_README.md  → Documentación técnica
+📄 CHANGES_SUMMARY.md   → Resumen de todos los cambios
+
+═══════════════════════════════════════════════════════════════
+   ❓ ¿PROBLEMAS?
+═══════════════════════════════════════════════════════════════
+
+1. Widget no aparece:
+   → Espera 3-5 minutos después del deployment
+   → Recarga la página (Ctrl + F5)
+
+2. Videos no se sincronizan:
+   → Verifica que el widget diga "ON"
+   → Haz clic en "Sync Now" manualmente
+   → Revisa la consola del navegador (F12)
+
+3. Supabase sigue pausándose:
+   → Configura UptimeRobot (ver arriba)
+   → Verifica que Supabase esté activo en su dashboard
+
+═══════════════════════════════════════════════════════════════
+   ✅ RESULTADO FINAL
+═══════════════════════════════════════════════════════════════
+
+Una vez desplegado:
+
+✅ Videos se indexan AUTOMÁTICAMENTE cada 30 minutos
+✅ Supabase se mantiene ACTIVO con pings cada 5 minutos
+✅ NO necesitas hacer NADA manualmente
+✅ Widget visual te muestra el estado en TIEMPO REAL
+✅ Controles manuales disponibles si los necesitas
+✅ 100% GRATUITO (con plan actual de Vercel)
+
+═══════════════════════════════════════════════════════════════
+
+¿Listo para empezar? Ejecuta:
+
+    ./deploy.sh
+
+¡Y eso es todo! 🚀
+
+═══════════════════════════════════════════════════════════════
