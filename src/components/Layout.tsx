@@ -34,7 +34,7 @@ export function Layout({ children }: LayoutProps) {
   }
 
   const copyBitcoinAddress = async () => {
-    const address = 'qrmyh2x674uka3jls0rwv7rnpwgty2kr3ckagu7ltu'
+    const address = 'bitcoincash:qrmyh2x674uka3jls0rwv7rnpwgty2kr3ckagu7ltu'
     try {
       await navigator.clipboard.writeText(address)
       setCopiedAddress(true)
@@ -217,11 +217,10 @@ export function Layout({ children }: LayoutProps) {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <h3 className="text-2xl font-bold text-white mb-4">
-                ¡Apoya la Difusión de Bitcoin Cash!
+                ¡Support Bitcoin Cash Adoption!
               </h3>
               <p className="text-lg text-white/90 mb-6 max-w-4xl mx-auto leading-relaxed">
-                ¡Apoya mi labor en la difusión de las ideas de Bitcoin Cash, la defensa de la libertad y la promoción de tecnologías descentralizadas! 
-                Tu donación impulsa la creación de contenido educativo y eventos para un futuro más libre. Contribuye hoy a:
+                Support our work spreading Bitcoin Cash ideas, defending freedom, and promoting decentralized technologies! Your donation drives the creation of educational content and events for a freer future. Contribute today to::
               </p>
               
               {/* Donation Section */}
@@ -233,14 +232,14 @@ export function Layout({ children }: LayoutProps) {
                     className="h-12 w-12 mr-3"
                   />
                   <span className="text-lg font-semibold text-white">
-                    Apoya este video comprándome un café con Bitcoin Cash:
+                    Support this platform by buying me a coffee with Bitcoin Cash:
                   </span>
                 </div>
                 
                 <div className="bg-black/20 rounded-lg p-4 border border-white/20">
                   <div className="flex items-center justify-between flex-wrap gap-2">
                     <code className="text-sm text-white font-mono break-all flex-1">
-                      qrmyh2x674uka3jls0rwv7rnpwgty2kr3ckagu7ltu
+                      bitcoincash:qrmyh2x674uka3jls0rwv7rnpwgty2kr3ckagu7ltu
                     </code>
                     <Button
                       onClick={copyBitcoinAddress}
